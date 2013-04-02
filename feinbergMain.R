@@ -15,7 +15,7 @@ sourceDir <- function(path, trace = TRUE, ...) {
     if(trace) cat("\n")
   }
 }
-sourceDir("~/cleanCode/Scripts")
+sourceDir("~/FeinbergProject/Scripts")
 
 #call to function for table aggregation
 data <- getdata(username="jriley",
