@@ -21,13 +21,15 @@ sourceDir("~/FeinbergProject/Scripts")
 data <- getdata(username="jriley",
                 pass="jriley", 
                 host="165.124.171.126", 
-                #db="f247b73e722c4d6355772e077b533209" #SAM - old
-                db="bcb4397dbe292359ee7a8f824ef14732") #JOE - new
+                #db="f247b73e722c4d6355772e077b533209") #SAM - old
+                #db="2da6265b1050aa0f2e791b152f72c7cc") #JOE - old
+                db="9591f0ac97ca0d8d3565bd0443ce9dbd") #SAM - new
+                #db="bcb4397dbe292359ee7a8f824ef14732") #JOE - new
 data.distance <- getdistance(data)
 
 #currently need home as global variable
-#home = c(41.966427,-87.665191) #SAM - old
-home = c(42.04465,-87.68459) #JOE - new
+home = c(41.966427,-87.665191) #SAM - old
+#home = c(42.04465,-87.68459) #JOE - new
 
 #calls both distance functions and binds to new dataframe
 home.or.away <- as.data.frame(cbind(laggeddistance(home,data.distance[2:4]),homevaway(home,data.distance[2:4]),data.distance))
@@ -68,3 +70,5 @@ summary <- sqldf('select homeorawayid as interval,
 
 summary$mintime <- as.POSIXlt(summary$mintime, origin="1970-01-01",tz="America/Chicago")
 summary$maxtime <- as.POSIXlt(summary$maxtime, origin="1970-01-01",tz="America/Chicago")
+
+sqldf("select * from d3 where eventDateTime like '%2013-04-02%'")

@@ -24,7 +24,7 @@ perhour <- sqldf("select year, mon, weekday, mday, hour,
                   sum(SCREEN_ACTIVE) as activescreencount,
                   count(SCREEN_ACTIVE) as screenobs, 
                   (CASE WHEN sum(plugged) > 0 THEN 1 ELSE 0 END) as plugged
-                 from [total data]
+                 from d3
                  group by year, mon, weekday, mday, hour
                  order by year, mon, weekday, mday, hour")
 perhour[is.na(perhour)==TRUE] = 0
