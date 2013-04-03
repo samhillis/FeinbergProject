@@ -1,0 +1,15 @@
+{
+    "contents" : "d3$weekday <- weekdays(d3$eventDateTime)\nperhour <- sqldf(\"select year, mon, weekday, mday, hour, \nsum(SCREEN_ACTIVE) as activescreencount,\ncount(SCREEN_ACTIVE) as screenobs, \n(CASE WHEN sum(plugged) > 0 THEN 1 ELSE 0 END) as plugged\n                 from d3\n                 group by year, mon, weekday, mday, hour\n                 order by year, mon, weekday, mday, hour\")\nperhour[is.na(perhour)==TRUE] = 0\nperhourscreen <- sqldf(\"select weekday, hour, sum(activescreencount) as screens, \n                        sum(screenobs) as obscount,\n                        sum(plugged) as plugged\n                        from perhour\n                        group by weekday, hour\")\nperhourt <- t(perhourscreen)\nbarplot(perhourt[3:4,],\n        names = perhourt[1,],\n        ylab = 'Count',\n        xlab = 'Hour',\n        main = 'Total Screen Actives and Observations')\n\nlatenight <- sqldf(\"select year, mon, mday, sum(SCREEN_ACTIVE) as latenightactivity\n      from d3\n      WHERE hour between 0 and 7\n      group by year, mon, mday\n      order by year, mon, mday\")\nlatenight[is.na(latenight)==TRUE] = 0\nlatenightt <- t(latenight[,4])\nnames <- paste(latenight$mon+1,'/',latenight$mday)\nbarplot(latenightt,\n        names = names,\n        ylab = 'Count',\n        xlab = 'Month / Day',\n        main = '1AM to 7AM Screen Actives')\n\ngreeting = \"Hi Joe\"\n",
+    "created" : 1364960762928.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1904285554",
+    "id" : "68084022",
+    "lastKnownWriteTime" : 1364960799,
+    "path" : "C:/Users/Sam/Desktop/practice/FeinbergProject/feinbergPerHour.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

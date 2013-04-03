@@ -32,3 +32,5 @@ barplot(latenightt,
         ylab = 'Count',
         xlab = 'Month / Day',
         main = '1AM to 7AM Screen Actives')
+
+greeting = "Hi Joe"
